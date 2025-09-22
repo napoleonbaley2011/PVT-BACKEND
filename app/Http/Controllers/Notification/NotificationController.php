@@ -310,13 +310,13 @@ class NotificationController extends Controller
                 ->acceptJson()
                 ->post(env('URL_BACKEND_NODE'),[
                     'tokens' => $tokens,
-                    'title'  => 'COMPLEMENTO ECONÓMICO',
+                    'title'  => 'MUSERPOL',
                     'body'   => 'COMUNICADO',
                     'image'  => env('NOTIFICATION_IMAGE', ''),
                     'data'   => $data
                 ]);
             if($response->successful()) {
-                $delivered = [];                    // Para el estado en la base de datos
+                $delivered = [];                    
                 $message   = $response['message'];
                 $responses = $message['responses'];
 
@@ -882,7 +882,6 @@ class NotificationController extends Controller
         $affiliates = [];
         foreach($rows as $row) {
             $send = false;
-	    logger($row[0]);
             if($row[0] != null && ctype_digit(trim($row[0]))) {
                 if(Affiliate::find($row[0]) != null && Affiliate::find($row[0])->affiliate_token != null && Affiliate::find($row[0])->affiliate_token->firebase_token != null )
                 {
